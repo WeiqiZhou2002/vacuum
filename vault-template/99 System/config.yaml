@@ -1,0 +1,13 @@
+vault:
+  name: Vacuum
+
+processing:
+  cadence: weekly
+  automation: false
+
+capture:
+  preserve_capture_payload: true
+  require_comment: true
+
+synthesis:
+  playbooks: user_triggered
