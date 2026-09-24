@@ -1,6 +1,9 @@
 .DS_Store
 .vacuum-test/
 .trash/
+**/.vacuum-doctor/
+**/__pycache__/
+*.pyc
 **/.obsidian/workspace.json
 **/.obsidian/workspace-mobile.json
 *.swp

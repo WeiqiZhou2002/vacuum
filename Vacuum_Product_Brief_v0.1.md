@@ -63,7 +63,7 @@ Capture → Knowledge Card → Playbook → Retrieval
 每次 Capture 都保留用户原文：
 
 ```text
-Why I saved this
+为什么值得收藏？
 ```
 
 Agent 不得用总结改写、覆盖或替代这段 Comment。
@@ -83,9 +83,9 @@ Vacuum 不以最大功能量、最大自动化、最大 metadata 或最大内容
 ↓
 Share / Copy Link
 ↓
-Vacuum Capture
+Vacuum
 ↓
-写一句 Why I saved this
+写一句 为什么值得收藏？
 ↓
 Done
 ```
@@ -93,11 +93,11 @@ Done
 随后由用户手动触发 Agent 处理：
 
 ```text
-00 Inbox
+00 收件箱
 ↓
 Agent processing
 ↓
-02 Knowledge / one Knowledge Card
+02 知识 / one Knowledge Card
 ```
 
 当多张 Card 已经能够支撑一个未来任务时，用户可以另行要求：
@@ -107,10 +107,10 @@ Knowledge
 ↓
 User-triggered synthesis
 ↓
-01 Playbooks
+01 手册
 ```
 
-原始 Capture 与实际取得的 payload 保持可追溯，并进入或关联 `03 Resources`。
+原始 Capture 与实际取得的 payload 保持可追溯，并进入或关联 `03 资料`。
 
 ---
 
@@ -139,7 +139,7 @@ Podcast、书籍、完整访谈和长篇研究的专用知识类型可由用户�
 Capture Contract 只定义以下三个环节之间的稳定接口：
 
 ```text
-Apple Shortcut → 00 Inbox → Agent
+Apple Shortcut → 00 收件箱 → Agent
 ```
 
 ### 5.1 一条 Capture 对应一个 Markdown 文件
@@ -162,11 +162,11 @@ source_url: https://example.com/post
 source_type: share
 ---
 
-# Capture
+# 收藏原因
 
-<用户原文 Why I saved this>
+<用户原文 为什么值得收藏？>
 
-## Captured Payload
+## 捕获内容
 
 <Shortcut 实际取得的文字或 payload；没有则省略本节>
 ```
@@ -176,7 +176,7 @@ source_type: share
 - `source_type` 仅使用 `share`、`clipboard` 或 `manual`。
 - `source_url` 可为空，尤其是 manual capture。
 - 用户 Comment 必须原样保留，不得用 AI summary 替代。
-- `Captured Payload` 可选，只表示 Shortcut 实际收到的内容。
+- `捕获内容` 可选，只表示 Shortcut 实际收到的内容。
 - 保存 URL 不等于归档原帖。
 - 除非实际取得了完整内容，否则不得声称原始 Source 已完整保存。
 - 不为了 schema 完整而添加无法可靠获得的 metadata。
@@ -203,17 +203,17 @@ Knowledge Card 的目标是：用户以后不重新打开原帖，也能快速�
 
 1–2 sentence distilled insight.
 
-## Key Points
+## 要点
 
 - ...
 - ...
 - ...
 
-## Why I Saved This
+## 我为什么收藏
 
 <用户原始 Comment>
 
-## Source
+## 来源
 
 <Source link / Resource provenance>
 ```
@@ -235,7 +235,7 @@ Knowledge Card 的目标是：用户以后不重新打开原帖，也能快速�
 示例：
 
 ```markdown
-## Note
+## 说明
 
 This is an individual experience; broader applicability is uncertain.
 ```
@@ -249,18 +249,18 @@ This is an individual experience; broader applicability is uncertain.
 常规处理只负责：
 
 ```text
-00 Inbox
+00 收件箱
 → Agent processing
-→ 02 Knowledge
+→ 02 知识
 ```
 
 处理时遵守：
 
 1. 一条 Capture 默认生成一张 Knowledge Card。
 2. 精确保留用户原始 Comment。
-3. 只依据可访问的 URL、Captured Payload、标题或用户 Comment 处理，不脑补缺失内容。
+3. 只依据可访问的 URL、捕获内容、标题或用户 Comment 处理，不脑补缺失内容。
 4. 创建 Card 前检查它是否与现有 Knowledge 明显重复；必要时补充已有 Card，而不是制造近似副本。
-5. 在 `03 Resources` 中保留或关联可追溯的 Capture 与实际取得的 payload。
+5. 在 `03 资料` 中保留或关联可追溯的 Capture 与实际取得的 payload。
 6. 信息明显不足时，不强制生成 Card；可留在 Inbox，或最小标记为 `needs_context`。
 
 v0.1 不建立大型 lifecycle taxonomy。默认以文件所在层级表达主要状态：Inbox、Knowledge、Resources、Playbooks。
@@ -283,7 +283,7 @@ Playbook 不是：
 Vacuum 默认提供：
 
 ```text
-01 Playbooks/
+01 手册/
 └── _Index.md
 ```
 
@@ -342,13 +342,13 @@ v0.1 不使用 RAG、embeddings 或 Vector Database。
 AGENTS.md / CLAUDE.md
 = thin runtime adapters
 
-99 System/AI Rules.md
+99 系统/AI Rules.md
 = canonical system behavior and processing policy
 
 Vacuum Skill
 = reusable Agent operations
 
-99 System/config.yaml
+99 系统/config.yaml
 = user-configurable behavior
 
 Apple Shortcut
@@ -402,7 +402,7 @@ Vacuum 不尝试绕过 Obsidian 自动创建 iCloud Vault。
 用户安装：
 
 ```text
-Vacuum Capture
+Vacuum
 ```
 
 ### Step 4 — 可选手动配置 Back Tap
@@ -415,7 +415,7 @@ Settings
 → Touch
 → Back Tap
 → Double Tap
-→ Vacuum Capture
+→ Vacuum
 ```
 
 Vacuum 不声称可以自动配置 Back Tap。
@@ -430,12 +430,12 @@ Doctor 验证 Vault、Agent、Shortcut 与 iCloud 链路。Doctor 是 v0.1 的�
 
 ---
 
-## 12. Universal Vacuum Capture Shortcut
+## 12. Universal Vacuum Shortcut
 
 v0.1 只使用一个 Shortcut：
 
 ```text
-Vacuum Capture
+Vacuum
 ```
 
 目标逻辑：
@@ -452,13 +452,13 @@ Else
 ```text
 Safari / Bilibili / compatible apps
 → Share
-→ Vacuum Capture
+→ Vacuum
 ```
 
 ```text
 Xiaohongshu
 → Copy Link
-→ Vacuum Capture
+→ Vacuum
 ```
 
 可选：
@@ -466,7 +466,7 @@ Xiaohongshu
 ```text
 Copy Link
 → Back Tap
-→ Vacuum Capture
+→ Vacuum
 ```
 
 Shortcut distribution 的目标是未来支持一键导入，但以下内容仍是开发阶段需要验证的任务，而不是已实现能力：
@@ -530,7 +530,7 @@ Doctor 最终检查：
 - Agent 可以读取 Vault；
 - Agent 只能向允许的位置安全写入；
 - Skill 可发现；
-- Shortcut Capture 到达 `00 Inbox`；
+- Shortcut Capture 到达 `00 收件箱`；
 - Mac 端已看到 iCloud 同步结果；
 - Agent 可以识别测试 Capture。
 
@@ -541,7 +541,7 @@ Agent generates: VACUUM-TEST-XXXX
 ↓
 User captures the token from iPhone
 ↓
-Agent detects it in 00 Inbox
+Agent detects it in 00 收件箱
 ↓
 Shortcut + iCloud + Vault + Agent access verified
 ```
@@ -553,7 +553,7 @@ Doctor 的实现顺序：
 1. 先验证 Vault structure、system files、config、Agent read/write boundary。
 2. 再实现 iPhone ↔ iCloud ↔ Mac handshake。
 
-在 Capture 和 processing contract 稳定前，不实现完整 Doctor，也不把概念设计描述成现成功能。
+当前 Doctor v0.1 已在 core contracts 与 clean-install simulation 通过后实现；真实 iPhone / iCloud handshake 仍必须由用户参与验证。
 
 ---
 
@@ -569,24 +569,26 @@ vacuum/
 ├── vault-template/
 │   ├── AGENTS.md
 │   ├── CLAUDE.md
-│   ├── 00 Inbox/
-│   ├── 01 Playbooks/
+│   ├── 00 收件箱/
+│   ├── 01 手册/
 │   │   └── _Index.md
-│   ├── 02 Knowledge/
+│   ├── 02 知识/
 │   │   └── _Index.md
-│   ├── 03 Resources/
-│   └── 99 System/
+│   ├── 03 资料/
+│   └── 99 系统/
 │       ├── AI Rules.md
 │       ├── System Guide.md
 │       ├── config.yaml
-│       └── Templates/
+│       └── 模板/
 │           ├── Capture.md
 │           ├── Knowledge Card.md
 │           └── Playbook.md
 │
 ├── skills/
 │   └── vacuum/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── scripts/
+│           └── doctor.py
 │
 └── shortcuts/
     └── README.md
@@ -617,6 +619,15 @@ vacuum/
 vault:
   name: Vacuum
 
+paths:
+  inbox: "00 收件箱"
+  playbooks: "01 手册"
+  knowledge: "02 知识"
+  resources: "03 资料"
+  system: "99 系统"
+  templates: "99 系统/模板"
+  captures: "03 资料/捕获记录"
+
 processing:
   cadence: weekly
   automation: false
@@ -640,10 +651,10 @@ synthesis:
 
 ## 17. Privacy 与数据边界
 
-私人 Career Knowledge Base、Vacuum development repository 与用户 runtime Vault 必须保持分离：
+其他私人知识库、Vacuum development repository 与用户 runtime Vault 必须保持分离：
 
 ```text
-Private Career KB
+Other private vaults
 ≠
 Vacuum development repository
 ≠
@@ -703,7 +714,7 @@ Create an iCloud-backed Obsidian Vault named Vacuum
 ↓
 Install the Vacuum system files
 ↓
-Install Vacuum Capture
+Install Vacuum
 ↓
 Connect an Agent
 ↓
@@ -749,16 +760,16 @@ Retrieve it later or explicitly synthesize it with other Cards
 - 建立独立 repository，不导入私人 Git history。
 - 固定最小 Capture Contract 与 Knowledge Card 模板。
 - 编写 generic AI Rules、thin runtime adapters、System Guide 与最小 config。
-- 明确创建且只创建 `01 Playbooks/_Index.md` 与 `02 Knowledge/_Index.md` 两个导航索引；`03 Resources` 不为了结构对称预设 `_Index.md`。
+- 明确创建且只创建 `01 手册/_Index.md` 与 `02 知识/_Index.md` 两个导航索引；`03 资料` 不为了结构对称预设 `_Index.md`。
 - 建立最小 Skill surface 与 Shortcut 说明。
 - 使用 disposable test Vault 手动验证 repo 与 runtime Vault 的分离。
 
-### Phase 1 — Universal Vacuum Capture
+### Phase 1 — Universal Vacuum
 
-- 建立一个 `Vacuum Capture` Shortcut。
+- 以用户当前在 iPhone 手动维护的 `Vacuum` Shortcut 为准；repository 只记录最终行为，不声称已包含 binary。
 - 验证 Share Sheet 与 Clipboard fallback。
 - 重点验证小红书，其次是 Bilibili 与 Safari。
-- 验证 Comment、URL、Captured Payload、文件名碰撞、Import Questions 与 Inbox binding。
+- 验证 Comment、URL、捕获内容、文件名碰撞、Import Questions 与 Inbox binding。
 
 ### Phase 2 — Manual processing loop
 

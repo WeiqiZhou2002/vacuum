@@ -1,0 +1,22 @@
+vault:
+  name: Vacuum
+
+paths:
+  inbox: "00 收件箱"
+  playbooks: "01 手册"
+  knowledge: "02 知识"
+  resources: "03 资料"
+  system: "99 系统"
+  templates: "99 系统/模板"
+  captures: "03 资料/捕获记录"
+
+processing:
+  cadence: weekly
+  automation: false
+
+capture:
+  preserve_capture_payload: true
+  require_comment: true
+
+synthesis:
+  playbooks: user_triggered

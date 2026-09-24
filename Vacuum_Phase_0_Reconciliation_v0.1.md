@@ -59,18 +59,18 @@ Create only these in the first approved baseline:
 2. `README.md`
 3. `vault-template/AGENTS.md`
 4. `vault-template/CLAUDE.md`
-5. `vault-template/01 Playbooks/_Index.md`
-6. `vault-template/02 Knowledge/_Index.md`
-7. `vault-template/99 System/AI Rules.md`
-8. `vault-template/99 System/System Guide.md`
-9. `vault-template/99 System/config.yaml`
-10. `vault-template/99 System/Templates/Capture.md`
-11. `vault-template/99 System/Templates/Knowledge Card.md`
-12. `vault-template/99 System/Templates/Playbook.md`
+5. `vault-template/01 手册/_Index.md`
+6. `vault-template/02 知识/_Index.md`
+7. `vault-template/99 系统/AI Rules.md`
+8. `vault-template/99 系统/System Guide.md`
+9. `vault-template/99 系统/config.yaml`
+10. `vault-template/99 系统/模板/Capture.md`
+11. `vault-template/99 系统/模板/Knowledge Card.md`
+12. `vault-template/99 系统/模板/Playbook.md`
 13. `skills/vacuum/SKILL.md`
 14. `shortcuts/README.md`
 
-Runtime directories such as `00 Inbox` and `03 Resources` may be created during the manual template setup rather than represented by meaningless placeholder files. Add a test only when there is an executable rule worth testing; the first useful candidate is a private-data boundary scan before any public release.
+Runtime directories such as `00 收件箱` and `03 资料` may be created during the manual template setup rather than represented by meaningless placeholder files. Add a test only when there is an executable rule worth testing; the first useful candidate is a private-data boundary scan before any public release.
 
 ## Material risks still unresolved
 

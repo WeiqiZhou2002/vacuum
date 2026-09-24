@@ -1,6 +1,6 @@
 # Vacuum Phase 0 Abstraction Audit and Plan v0.1
 
-Status: proposed for manual review
+Status: historical analysis; superseded by the approved Product Brief and Phase 0 reconciliation
 
 Scope: analysis and planning only; no product implementation
 Primary source: `Vacuum_Product_Brief_v0.1.md`
@@ -37,7 +37,7 @@ These mechanisms are generic enough to retain as product principles. They should
    - Do not atomize long-form material merely to create more notes.
 
 4. **Personal-intent preservation**
-   - Preserve the user's original `Why I saved this` comment verbatim.
+   - Preserve the user's original `为什么值得收藏？` comment verbatim.
    - Never replace it with an AI summary.
 
 5. **Evidence discipline**
@@ -152,17 +152,16 @@ vacuum/
 ├── vault-template/
 │   ├── AGENTS.md
 │   ├── CLAUDE.md
-│   ├── 01 Playbooks/
+│   ├── 01 手册/
 │   │   └── _Index.md
-│   ├── 02 Knowledge/
+│   ├── 02 知识/
 │   │   └── _Index.md
-│   ├── 03 Resources/
-│   │   └── _Index.md
-│   └── 99 System/
+│   ├── 03 资料/
+│   └── 99 系统/
 │       ├── AI Rules.md
 │       ├── System Guide.md
 │       ├── config.yaml
-│       └── Templates/
+│       └── 模板/
 │           ├── Inbox Capture Template.md
 │           ├── Atomic Knowledge Card Template.md
 │           ├── Expert Brief Template.md
@@ -181,7 +180,7 @@ vacuum/
 
 Notes:
 
-- `00 Inbox` is created as a runtime directory by the future installer/Doctor. Git does not need to represent an empty folder in the first baseline.
+- `00 收件箱` is created as a runtime directory by the future installer/Doctor. Git does not need to represent an empty folder in the first baseline.
 - `setup/`, production installers, updater, scheduling code, binary Shortcut export, and Doctor implementation should be added only in their validated phases.
 - `CHANGELOG.md` should begin with the first release candidate, not as an empty Phase 0 artifact.
 - Additional Skill references should be created only when `SKILL.md` becomes too large or a stable operation deserves its own reference.
@@ -272,7 +271,7 @@ Resolve these before implementation choices become expensive:
 
 1. Is Codex the first fully supported reference agent, with Claude Code added after the end-to-end path works, or must both pass at the first milestone?
 2. Should Playbook synthesis always require an explicit user request in v0.1?
-3. Should an empty `Why I saved this` cancel capture, or permit capture with an explicit `intent_missing` state?
+3. Should an empty `为什么值得收藏？` cancel capture, or permit capture with an explicit `intent_missing` state?
 4. Is link-only capture acceptable when source content cannot be accessed, and what status should that capture receive?
 5. Should the first demo be domain-neutral, synthetic Career content, or one example of each?
 6. Which files may users customize, and which files are Vacuum-managed?
@@ -361,20 +360,19 @@ Create these in the first approved baseline commit, in this order:
 5. `docs/decisions/0001-repository-vs-runtime-vault.md`
 6. `docs/decisions/0002-capture-contract.md`
 7. `docs/decisions/0003-knowledge-schema.md`
-8. `vault-template/99 System/AI Rules.md`
+8. `vault-template/99 系统/AI Rules.md`
 9. `vault-template/AGENTS.md`
 10. `vault-template/CLAUDE.md`
-11. `vault-template/99 System/config.yaml`
-12. `vault-template/99 System/System Guide.md`
-13. `vault-template/99 System/Templates/Inbox Capture Template.md`
-14. `vault-template/99 System/Templates/Atomic Knowledge Card Template.md`
-15. `vault-template/99 System/Templates/Expert Brief Template.md`
-16. `vault-template/99 System/Templates/Playbook Template.md`
-17. `vault-template/01 Playbooks/_Index.md`
-18. `vault-template/02 Knowledge/_Index.md`
-19. `vault-template/03 Resources/_Index.md`
-20. `skills/vacuum/SKILL.md`
-21. `shortcuts/README.md`
-22. `tests/test_repository_boundary.py`
+11. `vault-template/99 系统/config.yaml`
+12. `vault-template/99 系统/System Guide.md`
+13. `vault-template/99 系统/模板/Inbox Capture Template.md`
+14. `vault-template/99 系统/模板/Atomic Knowledge Card Template.md`
+15. `vault-template/99 系统/模板/Expert Brief Template.md`
+16. `vault-template/99 系统/模板/Playbook Template.md`
+17. `vault-template/01 手册/_Index.md`
+18. `vault-template/02 知识/_Index.md`
+19. `skills/vacuum/SKILL.md`
+20. `shortcuts/README.md`
+21. `tests/test_repository_boundary.py`
 
 Do not create production setup/update scripts, a Shortcut binary, scheduled automation, resurfacing, RAG, crawler, or release packaging in this first commit.
