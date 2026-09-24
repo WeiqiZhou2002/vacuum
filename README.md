@@ -16,31 +16,56 @@ Vacuum 是一个面向中国移动社媒场景的 local-first 知识整理工作
 - canonical AI 处理规则；
 - Codex 与 Claude Code 的轻量 runtime adapter；
 - Capture → Card、用户触发的 Playbook synthesis、分层检索操作；
+- 可重复运行、遇到冲突即保留用户文件的最小 Vacuum Setup helper；
 - Universal Vacuum Shortcut 的最终行为与 Import Question 文档；
 - disposable clean-install simulation；
 - Vacuum Doctor v0.1 的本地检查、安全修复、握手等待与隔离 smoke test。
 
 Shortcut binary **未包含在 repository 中**。当前 Shortcut 由用户在 iPhone 上手动维护，真实 iPhone / iCloud handshake 仍需用户参与。
 
-## 用户仍需手动完成
+## Setup
 
-1. 在 Obsidian 中创建名为 `Vacuum` 的 iCloud Vault。
-2. 在 iPhone 上安装或导入 Vacuum Shortcut。
-3. 通过 Import Question 选择 Vault 中的 `00 收件箱`。
-4. 可选：把 Vacuum 配置为 Back Tap 动作。
-5. 在 Agent 中打开或连接 Vacuum Vault。
+完整首次使用流程只有六步：
 
-不要把本 repository 直接 clone 到 live iCloud Vault。未来 installer 只会把 Vacuum-owned files 安装到用户已经创建的 Vault；installer 当前尚未实现。
+1. 在 Obsidian 中手动创建名为 `Vacuum` 的 iCloud Vault。
+2. 在 repository checkout 中运行 Vacuum Setup：
+
+   ```bash
+   python3 skills/vacuum/scripts/setup.py --vault "/path/to/Obsidian/Vacuum"
+   ```
+
+3. 在 iPhone 上手动安装或导入 Universal Vacuum Shortcut。
+4. 在 Shortcut 的 Import Question 中选择 `Vacuum/00 收件箱`。
+5. 运行 Vacuum Doctor：
+
+   ```bash
+   python3 skills/vacuum/scripts/doctor.py local --vault "/path/to/Obsidian/Vacuum"
+   ```
+
+6. Doctor 为 `0 FAIL / 0 WARNING` 后即可使用。
+
+Setup 只复制 Vacuum 必需文件并创建缺失的空目录。已存在且内容相同的文件会跳过；同名但内容不同的文件会报告冲突并保留原文件。它不会覆盖 Knowledge、Resources、Captures 或用户修改过的 Playbooks，可以安全重复运行。
+
+不要把 repository 直接 clone 到 live iCloud Vault。Setup 不会创建 Obsidian Vault，不会自动安装 Shortcut，也不会配置 scheduler 或 background automation。可选的 Back Tap 仍由用户手动设置。
 
 ## Vault 结构
 
 ```text
 00 收件箱
 01 手册
+├── _Index.md
+├── 申请材料.md
+├── Networking 与内推.md
+├── 行为面试.md
+├── 专业面试.md
+├── HR 面试.md
+└── 其他.md
 02 知识
 03 资料
 99 系统
 ```
+
+默认手册为求职场景提供完整但轻量的首次使用结构。Agent 创建 Knowledge Card 时会选择一个主要手册，并只在确有帮助时添加补充手册；分类不清时进入「其他」。这些手册只是用户知识的可编辑综合入口，不包含通用求职建议，用户以后可以重命名、合并、删除或新增手册。
 
 - `vault-template/` — 新 Vacuum runtime Vault 的模板。
 - `skills/vacuum/` — Agent operations 与 Doctor v0.1。
@@ -59,7 +84,7 @@ python3 skills/vacuum/scripts/doctor.py local --vault "/path/to/Vacuum"
 
 ## 尚未实现
 
-- production installer 与 updater；
+- GUI installer 与 updater；
 - scheduled weekly automation；
 - resurfacing；
 - RAG / vector search；

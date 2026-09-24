@@ -32,6 +32,17 @@ AI Rules 是 canonical policy。本 Skill 提供 operation procedure，不得覆
 
 原样保留 Comment；默认一条 Capture 生成一张 Card；把原 Capture 保存在 config 指定的 captures path；更新 `02 知识/_Index.md`。信息不足时保留原状或最小标记 `needs_context`。
 
+创建 Card 时自动判断其适用的 Playbook：优先选择一个主要 Playbook，只有另一个情境确有独立复用价值时才增加补充 Playbook；不清楚时使用 `其他`，不得自动创造新类别。默认范围是：
+
+- `申请材料` — JD analysis、CV、cover letter、application email、portfolio selection / tailoring；
+- `Networking 与内推` — outreach、LinkedIn / email messaging、coffee chat、follow-up、referral；
+- `行为面试` — behavioral questions、STAR、challenge / failure / conflict、leadership、prioritization、trade-offs、collaboration；
+- `专业面试` — portfolio / project storytelling、professional judgment、design critique、case / design challenge、role-specific knowledge；
+- `HR 面试` — recruiter screen、self-introduction、motivation、Why role / company、salary、visa、availability、offer / negotiation、HR handoff；
+- `其他` — 不明确属于以上情境、但仍有求职复用价值的知识。
+
+把主要与可选补充 Playbook 链接写入 Card 的「适用手册」。该步骤只是路由，不得在 `process inbox` 中自动创建、综合或改写 Playbook。
+
 ### Xiaohongshu sources
 
 先静默复用正常 Chrome 已有的 Xiaohongshu session；本地工具可直接使用浏览器 Cookie（例如 `yt-dlp --cookies-from-browser chrome`），但不得导出 Cookie 文件、持久化凭据、管理账号、自动登录、处理密码/验证码/CAPTCHA 或绕过反爬。优先从页面结构化 post data（例如 `window.__INITIAL_STATE__`）取得描述、内容类型、图片列表和视频媒体 URL。
@@ -42,7 +53,7 @@ AI Rules 是 canonical policy。本 Skill 提供 operation procedure，不得覆
 
 ## synthesize playbooks
 
-只有用户明确要求时执行。围绕未来任务综合多张 Card，链接支撑它的 Knowledge，并更新 `01 手册/_Index.md`。不得把这一步合并到常规 Inbox processing。
+只有用户明确要求时执行。优先更新与任务对应的现有 Playbook；围绕未来任务综合多张 Card，并让每个实质判断链接支撑它的 Knowledge。保持内容轻量，不复制完整 Card，也不填充没有 Knowledge 支撑的通用求职建议。用户可以重命名、合并、删除或新增 Playbook；同步更新 `01 手册/_Index.md`。不得把这一步合并到常规 Inbox processing。
 
 ## retrieve / use knowledge
 

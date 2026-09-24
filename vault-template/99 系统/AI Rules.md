@@ -37,6 +37,20 @@ Vacuum 把移动社媒收藏转化为可复用的知识卡片，并在用户明�
 8. 信息不足时，保留在收件箱，或只使用 `status: needs_context`；不增加大型 lifecycle taxonomy。
 9. 把原始 Capture 与实际收到的 payload 保存在 `03 资料/捕获记录/`，不得静默删除。
 10. Card 链接对应资料；然后把 Card 添加到 `02 知识/_Index.md`。
+11. 为 Card 判断未来最相关的 Playbook 情境，并在 Card 的「适用手册」中记录链接：
+    - 默认只选择一个主要 Playbook；只有在另一个情境中也有明确、独立的复用价值时才添加补充 Playbook。
+    - 分类不清时使用 `其他`。
+    - 只能从现有 Playbook 中选择，不自动发明新类别。
+    - 这一步只路由 Card，不自动创建、综合或改写 Playbook。
+
+默认 Playbook 分类范围：
+
+- `申请材料` — JD analysis、CV、cover letter、application email、portfolio selection / tailoring。
+- `Networking 与内推` — outreach、LinkedIn / email messaging、coffee chat、follow-up、referral。
+- `行为面试` — behavioral questions、STAR、challenge / failure / conflict、leadership、prioritization、trade-offs、collaboration。
+- `专业面试` — portfolio / project storytelling、professional judgment、design critique、case / design challenge、role-specific knowledge。
+- `HR 面试` — recruiter screen、self-introduction、motivation、Why role / company、salary、visa、availability、offer / negotiation、HR handoff。
+- `其他` — 不明确属于以上情境、但仍有求职复用价值的知识。
 
 ### Xiaohongshu acquisition
 
@@ -56,6 +70,7 @@ Vacuum 把移动社媒收藏转化为可复用的知识卡片，并在用户明�
 - 1–2 句核心提炼；
 - 简短「要点」；
 - 「我为什么收藏」中的原始 Comment；
+- 「适用手册」中的一个主要 Playbook，以及仅在确有帮助时出现的补充 Playbook；
 - 「来源」中的资料链接与可用 Source URL。
 
 默认不要求 Evidence Type、Generalizability、confidence score 或复杂研究 metadata。
@@ -72,7 +87,9 @@ Vacuum 把移动社媒收藏转化为可复用的知识卡片，并在用户明�
 
 手册必须围绕未来任务或复用情境，综合多张相关知识卡片。它不是 Card list、taxonomy folder 或全 Vault 自动摘要。
 
-每个实质判断都要链接支撑它的知识卡片，并把手册添加到 `01 手册/_Index.md`。常规 Inbox processing 与未来 scheduled processing 都不得自动创建或改写手册。
+默认手册是 `申请材料`、`Networking 与内推`、`行为面试`、`专业面试`、`HR 面试` 与 `其他`。它们保持轻量，只综合用户自己的 Knowledge Cards，不填充通用求职建议。每个实质判断都要链接支撑它的知识卡片，避免复制完整 Card 内容，并确保手册保留在 `01 手册/_Index.md` 中。
+
+用户可以重命名、合并、删除或新增 Playbook；此后按当前实际存在的 Playbook 路由。常规 Inbox processing 与未来 scheduled processing 都不得自动创建或改写手册。
 
 ## 6. Retrieve / use knowledge
 

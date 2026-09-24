@@ -280,14 +280,31 @@ Playbook 不是：
 - 对全部 Knowledge 的自动总结；
 - 单条 Capture 的放大版。
 
-Vacuum 默认提供：
+Vacuum v0.1 默认提供一组 Career Playbook，形成完整但轻量的首次使用叙事：
 
 ```text
 01 手册/
-└── _Index.md
+├── _Index.md
+├── 申请材料.md
+├── Networking 与内推.md
+├── 行为面试.md
+├── 专业面试.md
+├── HR 面试.md
+└── 其他.md
 ```
 
-不预设强制主题 taxonomy。真实内容积累后，用户可以按自己的复用场景形成 Playbook。
+这不是不可修改的 taxonomy。用户以后可以重命名、合并、删除或新增 Playbook；Agent 不得自行发明新类别。
+
+创建 Knowledge Card 时，Agent 根据内容的未来使用情境选择一个主要 Playbook。只有同一内容在另一个情境中也有明确复用价值时，才添加补充 Playbook；分类不清时进入「其他」。Card 中保留这些 Playbook 链接，但分类本身不等于自动 synthesis，也不会自动改写 Playbook。
+
+默认分类范围：
+
+- `申请材料` — JD analysis、CV、cover letter、application email、portfolio selection / tailoring；
+- `Networking 与内推` — outreach、LinkedIn / email messaging、coffee chat、follow-up、referral；
+- `行为面试` — behavioral questions、STAR、challenge / failure / conflict、leadership、prioritization、trade-offs、collaboration；
+- `专业面试` — portfolio / project storytelling、professional judgment、design critique、case / design challenge、role-specific knowledge；
+- `HR 面试` — recruiter screen、self-introduction、motivation、Why role / company、salary、visa、availability、offer / negotiation、HR handoff；
+- `其他` — 不明确属于以上情境、但仍有求职复用价值的知识。
 
 ### v0.1 更新边界
 
@@ -309,6 +326,7 @@ Knowledge → Playbook
 - 给出跨多张 Card 综合后的可行动判断；
 - 链接支撑这些判断的 Knowledge；
 - 保持可扫描，而不是堆积摘要。
+- 不复制完整 Card 内容，也不填充没有 Knowledge 支撑的通用求职建议。
 
 v0.1 不在每周处理时自动创建或改写 Playbook。
 
@@ -393,9 +411,9 @@ Vacuum 不尝试绕过 Obsidian 自动创建 iCloud Vault。
 
 ### Step 2 — 从 GitHub 获取 Vacuum
 
-用户下载独立的 Vacuum repository。未来安装流程只把 Vacuum-owned system/template files 安装到已经存在的 Vault，不创建 Vault，也不把 repository 变成 live Vault。
+用户下载独立的 Vacuum repository，并运行最小 Setup helper。Setup 只把 Vacuum-owned system/template files 安装到已经存在的 Vault，不创建 Vault，也不把 repository 变成 live Vault。
 
-安装机制尚需在手动 workflow 稳定后验证；Product Brief 不假设 production installer 已存在。
+Setup 可安全重复运行：缺失文件会被复制；内容相同的文件会跳过；同名但内容不同的文件会报告冲突并保留原文件。它不覆盖 Knowledge、Resources、Captures 或用户修改过的 Playbooks。GUI installer 与 updater 尚未实现。
 
 ### Step 3 — 安装一个 Universal Shortcut
 
@@ -571,7 +589,13 @@ vacuum/
 │   ├── CLAUDE.md
 │   ├── 00 收件箱/
 │   ├── 01 手册/
-│   │   └── _Index.md
+│   │   ├── _Index.md
+│   │   ├── 申请材料.md
+│   │   ├── Networking 与内推.md
+│   │   ├── 行为面试.md
+│   │   ├── 专业面试.md
+│   │   ├── HR 面试.md
+│   │   └── 其他.md
 │   ├── 02 知识/
 │   │   └── _Index.md
 │   ├── 03 资料/
@@ -588,6 +612,7 @@ vacuum/
 │   └── vacuum/
 │       ├── SKILL.md
 │       └── scripts/
+│           ├── setup.py
 │           └── doctor.py
 │
 └── shortcuts/
