@@ -121,7 +121,7 @@ v0.1 不引入 RAG、embeddings 或 Vector Database。
 ## 7. Config 与写入安全
 
 - 读取 `99 系统/config.yaml` 中的 paths，不在 operation 内硬编码另一套路径。
-- `processing.cadence` 表达用户意图，不代表 scheduler 已存在。
+- `automation.cadence` 表达用户意图，不代表 scheduler 已存在。
 - 无论 cadence 如何，Playbook synthesis 都保持 user-triggered。
 - 只修改当前 operation 必需的文件。
 - 未经明确许可，不覆盖用户 Knowledge、Playbooks、config customization、canonical rules 或 templates。

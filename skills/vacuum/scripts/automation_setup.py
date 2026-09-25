@@ -68,12 +68,27 @@ def ensure_automation_config(config_path: Path) -> tuple[bool, str]:
                 enabled = _bool(values["automation"], "processing.automation")
             if "cadence" in values:
                 cadence = values["cadence"]
-            lines[legacy[0] : legacy[1]] = []
-        while lines and not lines[-1].strip():
-            lines.pop()
-        lines.extend(
-            ["", "automation:", f"  enabled: {'true' if enabled else 'false'}", f"  cadence: {cadence}"]
-        )
+            # Migrate only the two retired keys; other processing settings belong to the user.
+            retained = [
+                line
+                for line in lines[legacy[0] + 1 : legacy[1]]
+                if not line.startswith(("  automation:", "  cadence:"))
+            ]
+            replacement = [lines[legacy[0]], *retained] if any(line.strip() for line in retained) else []
+            if replacement and replacement[-1].strip():
+                replacement.append("")
+            replacement.extend(
+                ["automation:", f"  enabled: {'true' if enabled else 'false'}", f"  cadence: {cadence}"]
+            )
+            if legacy[1] < len(lines):
+                replacement.append("")
+            lines[legacy[0] : legacy[1]] = replacement
+        else:
+            while lines and not lines[-1].strip():
+                lines.pop()
+            lines.extend(
+                ["", "automation:", f"  enabled: {'true' if enabled else 'false'}", f"  cadence: {cadence}"]
+            )
         changed = True
         block = _mapping_block(lines, "automation")
 
@@ -109,9 +124,12 @@ def set_automation_enabled(config_path: Path, enabled: bool) -> None:
 
 def _atomic_write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    mode = path.stat().st_mode & 0o777 if path.exists() else None
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
         handle.write(text)
         temporary = Path(handle.name)
+    if mode is not None:
+        temporary.chmod(mode)
     temporary.replace(path)
 
 
