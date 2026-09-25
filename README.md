@@ -1,5 +1,7 @@
 # Vacuum
 
+**[安装 / Install →](#install)**
+
 **把收藏夹里吃灰的内容，变成以后真正用得上的知识。**
 
 Vacuum 是一个 local-first 的个人知识整理工作流。
@@ -278,6 +280,8 @@ Vacuum 会在内容通过 Completeness Gate 后才建立 Knowledge Card。
 
 ---
 
+<a id="install"></a>
+
 # 安装
 
 Vacuum v0.1 已在以下环境完整验证：
@@ -294,6 +298,15 @@ Windows 目前不属于 v0.1 的正式验证环境。
 
 Vacuum 的知识本身都是普通 Markdown 文件，因此系统结构并不依赖某一种知识内容；但当前 Setup、Automation 与完整端到端流程以 macOS 为目标。
 
+开始前，准备好 Mac 与 iPhone 上的 Obsidian，开启同一 Apple 账号的 iCloud Drive，并在 Mac 终端确认 Python 3 和 Git 可用：
+
+```bash
+python3 --version
+git --version
+```
+
+先完成一次手动处理，再按需开启自动整理。第 5 步提供 Codex 桌面端、Codex CLI 和其他兼容 Agent 三种使用方式。
+
 ## 1. 创建 Vacuum Vault
 
 在 Obsidian 中创建一个新的 iCloud Vault：
@@ -304,14 +317,28 @@ Vacuum
 
 请通过 Obsidian 自己创建 iCloud Vault，而不是手动在 iCloud Drive 中新建普通文件夹。
 
+知识库名称必须是 `Vacuum`，Setup 会检查这个名称。可以先在 iPhone 的 Obsidian 中创建并启用 iCloud，再等待它同步到 Mac。
+
 ## 2. 运行 Vacuum Setup
 
-下载本 repository。
-
-在 repository 目录中运行：
+在 Mac 终端下载本 repository。下面以 `~/Documents/Codex/vacuum` 为代码目录，以 Obsidian 默认 iCloud 位置为知识库目录：
 
 ```bash
-python3 skills/vacuum/scripts/setup.py --vault "/path/to/Obsidian/Vacuum"
+mkdir -p "$HOME/Documents/Codex"
+git clone https://github.com/WeiqiZhou2002/vacuum.git "$HOME/Documents/Codex/vacuum"
+
+VACUUM_REPO="$HOME/Documents/Codex/vacuum"
+VACUUM_VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vacuum"
+```
+
+如果已下载仓库，跳过 `git clone`，将 `VACUUM_REPO` 设为实际代码目录。若知识库放在其他位置，也相应修改 `VACUUM_VAULT`。以下终端命令使用这两个变量；新开终端后需重新设置。
+
+确认知识库已同步到 Mac 后，初始化并暂时关闭自动整理：
+
+```bash
+python3 "$VACUUM_REPO/skills/vacuum/scripts/setup.py" \
+  --vault "$VACUUM_VAULT" \
+  --automation disable
 ```
 
 Setup 会：
@@ -347,6 +374,8 @@ Vacuum
 → 00 收件箱
 ```
 
+在 iPhone 上安装时，完整参考位置为 `iCloud Drive → Obsidian → Vacuum → 00 收件箱`。
+
 ## 4. 运行 Vacuum Doctor
 
 Doctor 用于检查 Vacuum 是否真正安装正确。
@@ -354,7 +383,7 @@ Doctor 用于检查 Vacuum 是否真正安装正确。
 运行：
 
 ```bash
-python3 skills/vacuum/scripts/doctor.py local --vault "/path/to/Obsidian/Vacuum"
+python3 "$VACUUM_REPO/skills/vacuum/scripts/doctor.py" local --vault "$VACUUM_VAULT"
 ```
 
 Doctor 会检查：
@@ -404,11 +433,41 @@ iPhone
 为什么值得收藏？
 ```
 
-之后运行：
+等待 Mac 上的 `00 收件箱` 出现对应 Markdown 文件，再选择下面一种方式处理。
+
+### 方式 A：Codex 桌面端
+
+将 iCloud 中的 **Vacuum 知识库文件夹**作为本地项目打开，在该目录下开始任务。Setup 已为知识库创建 `AGENTS.md`，用于引导 Codex 读取系统规则。
+
+首次在对话中发送下面的指令；如果第 2 步选择了不同的代码目录，请替换 Skill 路径：
+
+```text
+请读取 ~/Documents/Codex/vacuum/skills/vacuum/SKILL.md，
+按照当前 Vacuum 知识库的系统规则执行 process inbox。
+```
+
+同一任务中继续处理新收藏时，可以直接发送：
 
 ```text
 process inbox
 ```
+
+### 方式 B：Codex CLI
+
+如果习惯终端，先按 [Codex CLI 官方说明](https://developers.openai.com/codex/cli/)安装并登录。已配置好 CLI 的用户可直接运行：
+
+```bash
+codex --cd "$VACUUM_VAULT" \
+  "请读取 $VACUUM_REPO/skills/vacuum/SKILL.md，按照当前 Vacuum 知识库的系统规则执行 process inbox。"
+```
+
+这会从知识库目录启动交互任务。`process inbox` 是发送给 Agent 的操作指令，不是可以单独在 shell 中执行的命令。
+
+### 方式 C：Claude Code / 其他兼容 Agent
+
+也可以使用能够读取 Skill、读写本地文件并访问来源内容的 Agent。将工作目录设为 Vacuum 知识库，发送方式 A 中的完整指令。Setup 同时提供 `CLAUDE.md`；其他 Agent 若不自动读取适配文件，应明确要求它依次读取 `99 系统/AI Rules.md`、`99 系统/config.yaml` 和 `99 系统/System Guide.md`。
+
+仅有聊天能力、无法访问本地知识库的工具不能直接完成此流程。图片或视频收藏还需要对应的图片读取、音频和视频处理能力；来源材料不完整时会保留在收件箱。其他 Agent 的具体能力需要在所用环境中验证；仓库现有自动化 runner 使用 Codex CLI。
 
 Vacuum 会完成：
 
@@ -422,6 +481,8 @@ Vacuum 会完成：
 → 归档原始 Capture
 → 更新 Knowledge Index
 ```
+
+成功后可在 Obsidian 的 `02 知识` 查看卡片；原始 Capture 会保存在 `03 资料/捕获记录`，收藏原因原样保留。需要登录或无法完整读取的内容仍留在 `00 收件箱`，以 Agent 返回的处理报告为准。
 
 ## 6. 可选：开启自动整理
 
@@ -465,7 +526,22 @@ weekly
 automation.cadence
 ```
 
-之后重新运行 Setup，即可更新日程。
+首次 Setup 时可以选择启用自动整理。知识库已投入使用后，建议运行独立配置脚本来启用或更新日程，避免重新安装时因已更新的索引、手册与模板不同而报告冲突：
+
+```bash
+CODEX_BIN="$(command -v codex)" \
+  python3 "$VACUUM_REPO/skills/vacuum/scripts/automation_setup.py" \
+  --vault "$VACUUM_VAULT" --enable
+```
+
+启用前需确认 `codex --version` 可用且 CLI 已登录。脚本会设置 `automation.enabled: true` 并安装 macOS `launchd` 定时任务；修改 `automation.cadence` 后再次运行上述命令即可更新日程。后台任务在这台 Mac 上运行，需要能够访问已同步的知识库和来源内容。
+
+关闭自动整理：
+
+```bash
+python3 "$VACUUM_REPO/skills/vacuum/scripts/automation_setup.py" \
+  --vault "$VACUUM_VAULT" --disable
+```
 
 Automation 是可选的。
 
