@@ -1,35 +1,200 @@
 # Vacuum
 
-Vacuum 是一个 local-first 的移动收藏整理工作流，把被保存后逐渐忘记的社交媒体内容，转化为可检索、可复用的个人知识。
+**把收藏夹里吃灰的内容，变成以后真正用得上的知识。**
+
+Vacuum 是一个 local-first 的个人知识整理工作流。
+
+你可以在手机上继续像平时一样收藏内容，只需要多回答一句：
+
+> 为什么值得收藏？
+
+Vacuum 会根据这个意图读取来源、提炼真正相关的信息，并把它转成可追溯、可复用的 Knowledge Card。
+
+随着内容积累，这些 Cards 可以进一步组合成你自己的 Playbooks——不是一个越来越大的收藏夹，而是一套在真实场景里能够直接使用的知识系统。
 
 ```text
-手机收藏
-→ AI 提炼
+Capture
+→ AI Distillation
 → Knowledge Card
-→ Career Playbook 路由
-→ 检索与复用
+→ Playbook
+→ Retrieval & Reuse
 ```
+
+---
 
 ## 为什么需要 Vacuum
 
-有用的内容常常散落在小红书、视频、网页和各种 App 的收藏夹中。它们很容易保存，却很难在写申请、准备面试或需要做决策时重新找到。
+我们每天都会遇到很多“以后肯定有用”的内容：
 
-Vacuum 保留用户收藏时的原始 Comment，把它作为提炼意图：Source 决定哪些事实可用，Comment 决定什么最值得提取。结果不是一篇平均用力的摘要，而是一张简洁、可追溯的 Knowledge Card。
+- 小红书经验帖
+- 视频
+- 网页
+- 教程
+- 行业观点
+- 面试技巧
+- 食谱
+- 旅行攻略
+- 设计参考
+- 学习资料
 
-## v0.1 能做什么
+保存它们很容易。
 
-- 通过 Universal Vacuum Shortcut 在 iPhone 上捕获链接和用户 Comment。
-- 处理小红书文字、图片轮播和视频，并在内容不完整时 fail closed。
-- 按 Comment 聚焦提炼，保留原 Capture 与来源链接。
-- 为每张 Knowledge Card 选择一个主要 Career Playbook，必要时添加补充场景。
-- 通过 Doctor 验证 Vault、配置、写入边界与 Shortcut 链路。
-- 可选按天或按周自动处理 Inbox，默认关闭。
+真正的问题是：
 
-Playbook 不会在每次处理 Inbox 时自动改写。只有用户明确触发 synthesis 时，Vacuum 才会综合已有 Knowledge Cards。
+**几周之后，我们通常已经忘记自己收藏过什么。**
 
-## 默认 Career Playbooks
+即使还记得，也很难从几十、几百条收藏里重新找到当时真正有价值的部分。
 
-Vacuum 首次安装会提供六个轻量、可编辑的求职场景：
+Vacuum 想解决的不是“怎么收藏更多”，而是：
+
+> **怎么让收藏过的内容真正进入自己的知识系统，并在以后需要的时候重新出现。**
+
+---
+
+## Vacuum 怎么工作
+
+### 1. Capture
+
+在手机上把内容发送给 Vacuum，并写下一句：
+
+> 为什么值得收藏？
+
+Vacuum 会原样保存这句话。
+
+例如：
+
+```text
+这个关于谈薪时怎么回应 HR 的部分值得以后复习
+```
+
+### 2. Distill
+
+Vacuum 不会机械地平均总结整篇内容。
+
+它会同时参考：
+
+```text
+Source  → 决定哪些事实可以使用
+Comment → 决定什么最值得提取
+```
+
+因此，同一篇内容，因为用户保存它的原因不同，最后得到的 Knowledge Card 也可能不同。
+
+### 3. Knowledge Card
+
+每条成功处理的 Capture 会形成一张简洁的 Knowledge Card。
+
+Card 会保留：
+
+- 核心 insight
+- 关键要点
+- 你当时的原始 Comment
+- 原始来源
+- 对应的 Playbook 场景
+
+原始 Capture 仍然会被保留，因此知识始终可以追溯回来源。
+
+### 4. Playbook
+
+Knowledge Card 解决的是：
+
+> “这条内容里有什么值得留下？”
+
+Playbook 解决的是：
+
+> “到了某个真实场景，我现在应该看什么？”
+
+比如：
+
+```text
+快要行为面试了
+→ 打开「行为面试」
+
+准备发 networking message
+→ 打开「Networking 与内推」
+
+准备做一顿饭
+→ 打开「晚餐」
+
+计划去东京旅行
+→ 打开「东京」
+```
+
+Playbook 不是固定 taxonomy，而是用户自己的使用场景。
+
+---
+
+## Vacuum 是你的系统，不是固定模板
+
+Vacuum 对 **pipeline** 有明确结构：
+
+```text
+Capture
+→ Card
+→ Playbook
+→ Retrieval
+```
+
+但对 **你整理什么、怎么分类** 没有强制要求。
+
+你可以：
+
+- 重命名 Playbook
+- 新建 Playbook
+- 删除 Playbook
+- 合并 Playbook
+- 改变分类逻辑
+- 让自己的 Agent 根据使用习惯重新组织整个结构
+
+例如，同一个 Vacuum 可以被用成：
+
+```text
+求职
+├── 申请材料
+├── 行为面试
+├── 专业面试
+└── HR 面试
+```
+
+也可以是：
+
+```text
+食谱
+├── 早餐
+├── 快手菜
+├── 烘焙
+└── 聚餐
+```
+
+或者：
+
+```text
+旅行
+├── 东京
+├── 巴黎
+├── 餐厅
+└── 行程灵感
+```
+
+甚至：
+
+```text
+Design Research
+├── CMF
+├── AI
+├── UX
+└── Reference
+```
+
+**Career 只是 Vacuum v0.1 默认提供的第一个 Starter Pack。**
+
+---
+
+## 默认 Career Starter Pack
+
+Vacuum 最初就是从“求职收藏越来越多，但真正面试时找不到”这个问题开始的。
+
+因此 v0.1 默认提供六个轻量、可编辑的 Career Playbooks：
 
 - `申请材料`
 - `Networking 与内推`
@@ -38,95 +203,467 @@ Vacuum 首次安装会提供六个轻量、可编辑的求职场景：
 - `HR 面试`
 - `其他`
 
-这些不是固定 taxonomy。用户可以之后重命名、合并、删除或添加 Playbook。Vacuum 不会自动发明新类别；无法明确分类的 Card 进入「其他」。
+这些分类只是一个开箱即用的起点。
 
-## 安装
+你可以让自己的 Agent 随时修改它们。
 
-### 1. 创建 iCloud Obsidian Vault
+Vacuum 不会自动创造新的 Playbook；如果内容暂时无法明确分类，会先进入「其他」。
 
-在 Obsidian 中手动创建一个名为 `Vacuum` 的 Vault，并选择保存到 iCloud。
+---
 
-### 2. 运行 Vacuum Setup
+## 支持什么来源
 
-下载本 repository，在 repository 目录中运行：
+Vacuum 的 Capture **不绑定某个平台**。
+
+只要内容可以通过链接或系统 Share Sheet 发送，就可以进入 `00 收件箱`。
+
+例如：
+
+- 小红书
+- 普通网页
+- 支持系统分享的 App
+- 其他可以分享为链接的内容
+
+能否进一步自动完成内容提炼，取决于来源是否可以被 Agent 完整访问。
+
+### 小红书
+
+小红书是 Vacuum v0.1 目前验证最完整的平台。
+
+已经验证：
+
+- 文字内容
+- 图片轮播
+- 视频
+
+Vacuum 会在内容通过 Completeness Gate 后才建立 Knowledge Card。
+
+如果来源不完整、需要认证、已删除、私密或暂时无法访问，Capture 会继续留在 Inbox，而不是根据残缺信息生成一张看似完整的 Card。
+
+---
+
+## 如何 Capture
+
+### 小红书
+
+```text
+复制链接
+→ Vacuum
+```
+
+### 支持系统分享的 App
+
+```text
+分享
+→ Vacuum
+```
+
+### 可选：Back Tap
+
+你也可以把 iPhone 的 Back Tap 设置为 Vacuum。
+
+之后：
+
+```text
+复制链接
+→ 双击 / 三击手机背面
+→ Vacuum
+```
+
+每次 Capture 都会询问：
+
+> 为什么值得收藏？
+
+这句话会被原样保存，并决定之后的提炼重点。
+
+---
+
+# 安装
+
+Vacuum v0.1 已在以下环境完整验证：
+
+```text
+macOS
++ iPhone
++ iCloud Drive
++ Obsidian
++ Codex / compatible Agent
+```
+
+Windows 目前不属于 v0.1 的正式验证环境。
+
+Vacuum 的知识本身都是普通 Markdown 文件，因此系统结构并不依赖某一种知识内容；但当前 Setup、Automation 与完整端到端流程以 macOS 为目标。
+
+## 1. 创建 Vacuum Vault
+
+在 Obsidian 中创建一个新的 iCloud Vault：
+
+```text
+Vacuum
+```
+
+请通过 Obsidian 自己创建 iCloud Vault，而不是手动在 iCloud Drive 中新建普通文件夹。
+
+## 2. 运行 Vacuum Setup
+
+下载本 repository。
+
+在 repository 目录中运行：
 
 ```bash
 python3 skills/vacuum/scripts/setup.py --vault "/path/to/Obsidian/Vacuum"
 ```
 
-Setup 只安装缺失的 Vacuum 文件，不会静默覆盖用户修改的 Playbook、Knowledge、Resources 或 Captures。它可以安全重复运行。
+Setup 会：
 
-### 3. 安装 Universal Vacuum Shortcut
+- 创建缺失的 Vacuum 目录
+- 安装系统规则
+- 安装模板
+- 安装默认 Career Playbooks
+- 检查已有文件冲突
 
-从[官方 iCloud 链接](https://www.icloud.com/shortcuts/79c33516e80441dda719c907c2b5dcf3)安装 Shortcut。
+Setup 可以安全重复运行。
 
-### 4. 选择 Inbox
+它不会静默覆盖：
 
-导入 Shortcut 时选择：
+- Knowledge Cards
+- Resources
+- Captures
+- 用户已经修改过的 Playbooks
+- 用户自定义配置
+
+## 3. 安装 Universal Vacuum Shortcut
+
+安装：
+
+[Universal Vacuum Shortcut](https://www.icloud.com/shortcuts/79c33516e80441dda719c907c2b5dcf3)
+
+安装时会询问保存位置。
+
+选择：
 
 ```text
-Vacuum → 00 收件箱
+Vacuum
+→ 00 收件箱
 ```
 
-### 5. 运行 Vacuum Doctor
+## 4. 运行 Vacuum Doctor
+
+Doctor 用于检查 Vacuum 是否真正安装正确。
+
+运行：
 
 ```bash
 python3 skills/vacuum/scripts/doctor.py local --vault "/path/to/Obsidian/Vacuum"
 ```
 
-就绪状态应为 `0 WARNING / 0 FAIL`。
+Doctor 会检查：
 
-### 6. 可选启用自动处理
+- Vault 结构
+- 配置
+- 系统规则
+- Templates
+- Playbooks
+- Wiki Links
+- Agent 读写权限
 
-Setup 会询问是否启用自动处理，默认为关闭。首次安装可以保持默认选择；Doctor 通过后，重新运行 Setup 即可启用。
+Shortcut / iCloud 链路需要另行运行 Doctor 的 Stage B handshake；上面的 `local` 命令不检查这条链路。
 
-### 7. Ready
+正常状态应为：
 
-现在可以从 iPhone 将内容发送到 Vacuum。
+```text
+0 WARNING
+0 FAIL
+```
 
-## 如何捕获
+Doctor 还可以通过一个真实测试 Capture 验证：
 
-- **小红书：** `复制链接 → Vacuum`
-- **支持系统分享的 App：** `分享 → Vacuum`
-- **可选：** 将 iPhone Back Tap 手动设置为 `Vacuum`
+```text
+iPhone
+→ Shortcut
+→ iCloud
+→ Vacuum
+→ Agent
+```
 
-每次捕获都会询问「为什么值得收藏？」。这段 Comment 会被原样保留，并在之后的知识提炼中决定重点。
+## 5. Capture 第一条内容
 
-## 自动处理
+现在可以在 iPhone 上发送一条真实内容。
 
-自动处理默认关闭，v0.1 支持：
+例如：
 
-- `daily` — 每天 09:00
-- `weekly` — 每周一 09:00
+```text
+小红书
+→ 复制链接
+→ Vacuum
+```
 
-在 `99 系统/config.yaml` 中修改 `automation.cadence` 后，需重新运行 Setup 并保持自动处理为启用，新日程才会生效。v0.1 不提供自定义时间、cron expression、watcher 或即时触发。
+写下：
 
-后台处理会先尝试公开、匿名访问：
+```text
+为什么值得收藏？
+```
 
-- `COMPLETE` — 正常建立 Knowledge Card。
-- `AUTH_REQUIRED` — 保留在 Inbox，继续处理其他 Capture。
-- 其他获取失败 — 保留在 Inbox 并记录实际原因，不阻断整个 batch。
+之后运行：
 
-后台运行不会访问 Chrome 登录状态。手动运行 `process inbox` 时，只有当来源明确需要认证，Vacuum 才会尝试复用现有的 Chrome 小红书 session；如仍未登录，再等待用户自行登录并重试一次。Vacuum 不保存 Cookie，不管理账号或凭据。
+```text
+process inbox
+```
 
-## 当前边界
+Vacuum 会完成：
 
-- v0.1 面向 macOS、iCloud Drive、Obsidian 和 iPhone Shortcut 组合。
-- Vault 是 local-first storage，但 AI 处理是否离线取决于用户选择的 Agent service。
-- 小红书内容只有在文字、图片顺序或视频时轴通过 Completeness Gate 后才会建卡。删除、私密、网络错误或无法完整获取的来源会留在 Inbox。
-- Playbook synthesis 仍为用户手动触发，不随 Inbox 自动处理。
-- Setup 是小型命令行 helper，不是 GUI installer 或 updater。
-- Universal Shortcut 通过 iCloud 链接分发，repository 不包含 Shortcut binary。
-- v0.1 不包含 RAG、vector database、Obsidian plugin、mobile app 或自动 Playbook 重写。
+```text
+00 收件箱
+→ 读取 Comment
+→ 获取来源
+→ Completeness Gate
+→ Knowledge Card
+→ Playbook Routing
+→ 归档原始 Capture
+→ 更新 Knowledge Index
+```
 
-## 数据边界
+## 6. 可选：开启自动整理
 
-Vacuum 开发 repository 与用户的 runtime Vault 必须分离。公开 repository 不应包含真实 Capture、Comment、Knowledge Card、求职数据、凭据或私人 Vault 路径。
+Vacuum 不要求 Automation。
 
-## 技术文档
+你完全可以一直手动运行：
+
+```text
+process inbox
+```
+
+如果你希望 Inbox 自动被整理，也可以开启 Automation。
+
+默认状态：
+
+```yaml
+automation:
+  enabled: false
+  cadence: weekly
+```
+
+v0.1 支持：
+
+```text
+daily
+→ 每天 09:00
+
+weekly
+→ 每周一 09:00
+```
+
+修改：
+
+```text
+99 系统/config.yaml
+```
+
+中的：
+
+```yaml
+automation.cadence
+```
+
+之后重新运行 Setup，即可更新日程。
+
+Automation 是可选的。
+
+Vacuum 的知识结构不会依赖它。
+
+---
+
+# 自动处理如何工作
+
+后台 Automation 调用的仍然是同一个：
+
+```text
+process inbox
+```
+
+不会存在另一套后台 processing logic。
+
+因此：
+
+```text
+手动运行
+和
+自动运行
+```
+
+使用的是同一套 Vacuum Skill。
+
+后台处理遵循：
+
+```text
+Source
+↓
+尝试公开访问
+↓
+Completeness Gate
+```
+
+结果可能是：
+
+### COMPLETE
+
+正常生成 Knowledge Card。
+
+### AUTH_REQUIRED
+
+Capture 保留在 Inbox。
+
+后台任务继续处理其他内容，不会因为一条内容需要登录而失败。
+
+### SOURCE_UNAVAILABLE / NETWORK_ERROR / ACQUISITION_FAILED
+
+同样保留在 Inbox，并记录实际原因。
+
+一条失败的 Capture 不会阻断整个 batch。
+
+---
+
+## 小红书认证
+
+Vacuum 采用：
+
+> **Completeness first, authentication on demand.**
+
+也就是说，它不会因为来源是小红书，就先强制检查登录。
+
+Vacuum 会先尝试直接读取内容。
+
+如果已经能够完整读取：
+
+```text
+→ 直接处理
+```
+
+只有当来源明确需要认证时：
+
+```text
+→ AUTH_REQUIRED
+```
+
+手动运行 `process inbox` 时，Vacuum 可以尝试复用当前 Chrome 中已有的小红书登录状态。
+
+如果仍然没有登录：
+
+```text
+→ 打开登录页面
+→ 用户自行登录
+→ 重试一次
+```
+
+Vacuum：
+
+- 不保存用户名
+- 不保存密码
+- 不处理验证码
+- 不管理账号
+- 不保存独立 Cookie 文件
+
+后台 Automation 不会访问 Chrome 登录状态。
+
+---
+
+# Playbook Synthesis
+
+Knowledge Card 会自动判断适用的 Playbook 场景。
+
+但：
+
+```text
+Routing ≠ Synthesis
+```
+
+Vacuum 不会因为新增一张 Card，就自动改写整个 Playbook。
+
+当你真正需要某个场景时，可以明确要求 Agent：
+
+```text
+更新一下行为面试 Playbook
+```
+
+或者：
+
+```text
+根据最近的 Cards 重新整理我的东京旅行 Playbook
+```
+
+Agent 才会综合相关 Knowledge Cards。
+
+这样 Playbook 保持稳定，不会因为每一次 Capture 都频繁变化。
+
+---
+
+# 数据与隐私边界
+
+Vacuum 的 Vault 是普通 Markdown 文件组成的 local-first 知识库。
+
+公开 Vacuum repository 与用户自己的 runtime Vault 是分离的。
+
+Repository 不应该包含：
+
+- 真实 Capture
+- 用户 Comment
+- Knowledge Cards
+- 私人 Playbooks
+- Cookies
+- 登录凭据
+- 私人 Vault 路径
+
+AI 处理是否完全离线，取决于用户选择的 Agent / model service。
+
+---
+
+# v0.1 当前边界
+
+Vacuum v0.1 有意保持简单。
+
+目前不包含：
+
+- RAG
+- Vector Database
+- Obsidian Plugin
+- Mobile App
+- GUI Installer
+- 自动 Playbook 重写
+- 实时文件 watcher
+- instant processing
+- 任意 cron expression
+- bulk social-media bookmark importer
+- 通用社交平台 crawler
+
+Vacuum 的目标不是一次性解决所有知识管理问题。
+
+它只固定一件事：
+
+```text
+把收藏变成以后真正可以使用的知识。
+```
+
+---
+
+# 技术文档
+
+如果你想进一步了解 Vacuum 的内部设计：
 
 - [Product Brief](./Vacuum_Product_Brief_v0.1.md)
 - [Vacuum Skill](./skills/vacuum/SKILL.md)
 - [Shortcut 说明](./shortcuts/README.md)
 - [Automation 说明](./automation/README.md)
 - [Clean-install validation](./validation/clean-install-v0.1.md)
+
+---
+
+## Vacuum v0.1
+
+**Opinionated about the pipeline.  
+Flexible about the knowledge.**
+
+收藏什么，由你决定。
+
+怎么组织，也由你决定。
+
+Vacuum 负责让它们不再吃灰。
