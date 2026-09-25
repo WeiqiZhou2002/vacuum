@@ -6,7 +6,7 @@ Vacuum 把移动社媒收藏转化为简洁的知识卡片，并可在用户要�
 
 ```text
 00 收件箱
-→ 用户触发 Agent processing
+→ process inbox（手动或最小 trigger）
 → 02 知识
 → 用户另行触发 synthesis
 → 01 手册
@@ -40,4 +40,19 @@ Vacuum 把移动社媒收藏转化为简洁的知识卡片，并可在用户要�
 
 - Vault template、手动 core operations 与 Doctor v0.1 已实现。
 - Universal Shortcut 的行为与 Import Question 已文档化，但 binary 不在 repository 中。
-- production installer、updater、scheduler 与 background processing 尚未实现。
+- `process inbox` 是唯一 processing operation；trigger 只调用它，不复制逻辑。
+- Setup 可选安装最小 `codex exec` runner 与 `launchd` trigger；默认关闭，支持 `daily` 与 `weekly`。
+- live iCloud Vault background path 已验证：公开来源可完整处理，需要登录的小红书 Capture 会以 `AUTH_REQUIRED` 留在 Inbox，且重复运行不会产生副本。
+- GUI installer、updater 与默认启用的 background automation 尚未实现；当前 automation 默认关闭。
+
+## 自动处理
+
+`99 系统/config.yaml` 使用：
+
+```yaml
+automation:
+  enabled: false
+  cadence: weekly
+```
+
+`cadence` 只支持 `daily` 或 `weekly`。修改 cadence 后需重新运行 Vacuum Setup，并选择启用自动处理，Setup 才会安全重装 LaunchAgent。关闭自动处理会卸载 LaunchAgent；processing 逻辑始终只存在于 `process inbox`。

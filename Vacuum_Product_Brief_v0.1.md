@@ -2,9 +2,9 @@
 
 ## 0. 文档状态
 
-本文定义 Vacuum v0.1 的产品方向与 MVP 边界，不代表其中所有能力已经实现。
+本文定义已冻结的 Vacuum v0.1 产品范围与 MVP 边界。当前实现、Setup、Doctor、Shortcut 链路与可选自动处理均已通过 v0.1 验证。
 
-当前阶段先验证最小闭环：
+已验证的最小闭环：
 
 ```text
 社媒内容
@@ -14,7 +14,7 @@
 → 检索与复用
 ```
 
-在手动流程和核心约定稳定以前，不提前承诺自动化、安装器、完整 Doctor 或跨平台内容提取能力。
+v0.1 不再增加功能；未在本文或 README 中明确列出的跨平台能力不属于当前承诺。
 
 ---
 
@@ -159,7 +159,6 @@ YYYYMMDD-HHmmss.md
 status: inbox
 captured: 2026-09-17T18:30:45+02:00
 source_url: https://example.com/post
-source_type: share
 ---
 
 # 收藏原因
@@ -173,7 +172,6 @@ source_type: share
 
 约定：
 
-- `source_type` 仅使用 `share`、`clipboard` 或 `manual`。
 - `source_url` 可为空，尤其是 manual capture。
 - 用户 Comment 必须原样保留，不得用 AI summary 替代。
 - `捕获内容` 可选，只表示 Shortcut 实际收到的内容。
@@ -444,7 +442,11 @@ Vacuum 不声称可以自动配置 Back Tap。
 
 ### Step 6 — 运行 Vacuum Doctor
 
-Doctor 验证 Vault、Agent、Shortcut 与 iCloud 链路。Doctor 是 v0.1 的产品要求，但在核心 manual workflow 和 contracts 稳定后开发。
+Doctor 验证 Vault、Agent、Shortcut 与 iCloud 链路。Doctor v0.1 已实现并通过 clean-install 与真实 iPhone handshake 验证。
+
+### Step 7 — 可选启用自动处理
+
+Setup 明确询问用户是否启用 automatic Inbox processing，默认选择为关闭。启用时只安装调用 canonical `process inbox` 的 LaunchAgent；关闭时不保留已安装或已加载的 LaunchAgent。
 
 ---
 
@@ -487,43 +489,21 @@ Copy Link
 → Vacuum
 ```
 
-Shortcut distribution 的目标是未来支持一键导入，但以下内容仍是开发阶段需要验证的任务，而不是已实现能力：
-
-- Share Sheet Input 的真实 payload；
-- Clipboard fallback；
-- 小红书复制链接；
-- Bilibili 与 Safari 分享；
-- filename collision；
-- Shortcut Import Questions；
-- Inbox destination binding；
-- 新设备安装。
+Shortcut 通过公开 iCloud 链接分发。v0.1 已验证小红书复制链接、Comment、Import Question、Inbox destination binding 以及 iPhone → iCloud → Mac handshake。其他 App 只在系统 Share Sheet 能够向 Shortcut 提供可用输入时支持；不对每个第三方 App 的 payload 作额外承诺。
 
 ---
 
 ## 13. Processing Cadence 与 Automation
 
-默认意图是每周处理：
+自动处理默认关闭，可选择 daily 或 weekly：
 
 ```yaml
-processing:
+automation:
+  enabled: false
   cadence: weekly
 ```
 
-Cadence 必须可配置。用户以后可以告诉 Agent：
-
-> Process my Vacuum every two weeks.
-
-Agent 在获得用户指示后更新配置。
-
-但必须区分：
-
-```text
-weekly cadence
-≠
-background automation already implemented
-```
-
-v0.1 先验证手动 `Process Inbox`。Scheduled automation 只有在手动 processing 稳定后才进入开发，而且只处理 `Inbox → Knowledge`；不会自动创建或改写 Playbook。
+用户修改 `cadence` 后必须重新运行 Setup / automation configuration，才会更新 LaunchAgent。v0.1 不支持 cron expression、watcher 或 event-based processing。Scheduled automation 只调用 `process inbox`，只处理 `Inbox → Knowledge`，不会自动创建或改写 Playbook。
 
 ---
 
@@ -571,7 +551,7 @@ Doctor 的实现顺序：
 1. 先验证 Vault structure、system files、config、Agent read/write boundary。
 2. 再实现 iPhone ↔ iCloud ↔ Mac handshake。
 
-当前 Doctor v0.1 已在 core contracts 与 clean-install simulation 通过后实现；真实 iPhone / iCloud handshake 仍必须由用户参与验证。
+当前 Doctor v0.1 已通过 core contracts、clean-install simulation 与真实 iPhone / iCloud handshake。以后在新设备上重跑 handshake 时，仍需用户在 iPhone 上提交 token。
 
 ---
 
@@ -653,9 +633,9 @@ paths:
   templates: "99 系统/模板"
   captures: "03 资料/捕获记录"
 
-processing:
+automation:
+  enabled: false
   cadence: weekly
-  automation: false
 
 capture:
   preserve_capture_payload: true
@@ -667,8 +647,8 @@ synthesis:
 
 配置原则：
 
-- `cadence` 表示处理意图，不证明 scheduler 已存在。
-- `automation: false` 是 v0.1 初始真实状态。
+- `automation.enabled: false` 是 v0.1 初始真实状态。
+- `cadence` 只支持 `daily` 与 `weekly`；修改后需重新运行 Setup 才会应用。
 - 用户可通过 Agent 修改允许的配置，不应修改多处 prompt。
 - 在实现验证器以前，不增加复杂 schema 或迁移系统。
 
@@ -778,7 +758,7 @@ Retrieve it later or explicitly synthesize it with other Cards
 
 ---
 
-## 20. 开发顺序
+## 20. 开发顺序（v0.1 已完成）
 
 ### Phase 0 — Clean baseline
 
@@ -823,17 +803,13 @@ Retrieve it later or explicitly synthesize it with other Cards
 - Cadence 可配置。
 - Playbook 始终由用户显式触发。
 
-### Phase 7 — Packaging and release
+### Phase 7 — Packaging and release preparation
 
 - 根据真实安装测试补充 documentation、troubleshooting、license、demo 与 release packaging。
 - 不为了看起来完整而提前创建空文件或虚假能力。
 
 ---
 
-## 21. 当前最近三项优先事项
+## 21. v0.1 发布状态
 
-1. 建立最小、完全独立的 Vacuum repository baseline。
-2. 固定并验证 `Shortcut → Capture Markdown → Inbox` Contract。
-3. 验证 `Inbox → Knowledge Card → Resources traceability` 的手动闭环。
-
-完成这三项后，再开发完整 Doctor、安装器或 scheduled processing。
+v0.1 功能范围已冻结，核心闭环、Setup、Doctor、Shortcut 与可选 scheduled processing 已验证。当前只进行 README、privacy audit、release commit、tag 与发布准备，不增加或重设计产品功能。

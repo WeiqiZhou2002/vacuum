@@ -1,10 +1,10 @@
 # Vacuum v0.1 Clean-install Validation
 
-Date: 2026-09-17
+Date: 2026-09-25
 
 Environment: disposable local Vault built from the current `vault-template/`
 
-Result: local simulation passed; real iPhone / iCloud handshake pending user participation
+Result: clean Setup, Doctor, and optional launchd automation passed. The previously validated real iPhone Shortcut path was not simulated again.
 
 ## Disposable Vault
 
@@ -32,14 +32,29 @@ Confirmed:
 - exactly two default indexes exist
 - no `03 资料/_Index.md` was introduced
 
-Doctor Stage A reported `PASS 22 / WARNING 0 / FAIL 0` before content processing and after synthesis.
+The final fresh Setup simulation reported `PASS 23 / WARNING 0 / FAIL 0`.
+
+## Optional automation
+
+A completely disposable Vault named `Vacuum`, temporary HOME, unique LaunchAgent label, and synthetic Codex executable were used. No live Vault or private Capture entered the environment.
+
+Confirmed:
+
+- Setup asks whether automatic Inbox processing should be enabled;
+- a fresh install defaults to `automation.enabled: false` and installs no LaunchAgent;
+- enabling `weekly` installs and loads a Monday 09:00 schedule;
+- launchd starts the copied runner and the runner invokes canonical `process inbox`;
+- disabling unloads and removes the LaunchAgent and copied runner;
+- changing config to `daily` and rerunning Setup replaces the schedule with daily 09:00;
+- rerunning Setup with automation enabled leaves every Vault file byte-identical;
+- the final disposable state is disabled and has no loaded test LaunchAgent.
 
 ## Capture → Card
 
 A synthetic Shortcut-style Capture was created in `00 收件箱` with:
 
 - valid frontmatter;
-- `source_type: clipboard`;
+- the current required Capture YAML (`status`, `captured`, and optional-value `source_url`);
 - a synthetic URL and payload;
 - a Chinese user Comment.
 

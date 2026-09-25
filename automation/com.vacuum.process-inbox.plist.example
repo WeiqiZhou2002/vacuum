@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.vacuum.process-inbox</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>__VACUUM_RUNNER__</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__VACUUM_SUPPORT_DIR__</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>__HOME__</string>
+    <key>PATH</key>
+    <string>__HOME__/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>CODEX_BIN</key>
+    <string>/Applications/ChatGPT.app/Contents/Resources/codex</string>
+    <key>VACUUM_AUTOMATION_ENABLED</key>
+    <string>false</string>
+    <key>VACUUM_VAULT</key>
+    <string>__VACUUM_VAULT__</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>__VACUUM_LOG_DIR__/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__VACUUM_LOG_DIR__/launchd.err.log</string>
+</dict>
+</plist>

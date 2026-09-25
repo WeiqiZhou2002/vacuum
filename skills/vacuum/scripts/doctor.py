@@ -193,6 +193,21 @@ def local_check(vault: Path, repair: bool) -> int:
     else:
         checks.append(Check("PASS", "Config", f"可读取：{config_path.relative_to(vault)}"))
         config_valid = True
+        automation = config.get("automation")
+        if not isinstance(automation, dict):
+            checks.append(Check("FAIL", "Automation config", "缺少 automation mapping"))
+        elif not isinstance(automation.get("enabled"), bool):
+            checks.append(Check("FAIL", "Automation config", "automation.enabled 必须是 true 或 false"))
+        elif automation.get("cadence") not in {"daily", "weekly"}:
+            checks.append(Check("FAIL", "Automation config", "automation.cadence 必须是 daily 或 weekly"))
+        else:
+            checks.append(
+                Check(
+                    "PASS",
+                    "Automation config",
+                    f"enabled={str(automation['enabled']).lower()}, cadence={automation['cadence']}",
+                )
+            )
         try:
             paths = configured_paths(vault, config)
             checks.append(Check("PASS", "Paths", "config 中所有 runtime paths 可解析"))
@@ -364,7 +379,7 @@ def frontmatter(text: str) -> Optional[Dict[str, Any]]:
 
 
 def capture_comment(text: str) -> Optional[str]:
-    match = re.search(r"^# 收藏原因\s*\n(.*?)(?=^## |\Z)", text, re.MULTILINE | re.DOTALL)
+    match = re.search(r"^# (?:Capture )?收藏原因\s*\n(.*?)(?=^## |\Z)", text, re.MULTILINE | re.DOTALL)
     return match.group(1).strip() if match else None
 
 
@@ -420,16 +435,15 @@ def handshake_check(vault: Path, token: str, wait_seconds: int, interval_seconds
         return 1
     metadata = frontmatter(text)
     comment = capture_comment(text)
-    valid_types = {"share", "clipboard", "manual"}
     if not metadata:
         emit("FAIL", "Capture format", "缺少或无法解析 YAML frontmatter")
         return 1
-    missing = [key for key in ["status", "captured", "source_url", "source_type"] if key not in metadata]
+    missing = [key for key in ["status", "captured", "source_url"] if key not in metadata]
     if missing:
         emit("FAIL", "Capture format", f"缺少字段：{', '.join(missing)}")
         return 1
-    if metadata.get("status") != "inbox" or metadata.get("source_type") not in valid_types:
-        emit("FAIL", "Capture format", "status 或 source_type 无效")
+    if metadata.get("status") != "inbox":
+        emit("FAIL", "Capture format", "status 无效")
         return 1
     captured = metadata.get("captured")
     source_url = metadata.get("source_url")
@@ -482,7 +496,6 @@ def smoke(vault: Path) -> int:
             "status: inbox\n"
             f"captured: \"{datetime.now(timezone.utc).isoformat()}\"\n"
             "source_url: https://example.com/vacuum-doctor-synthetic\n"
-            "source_type: manual\n"
             "---\n\n"
             "# 收藏原因\n\n"
             f"{comment}\n\n"

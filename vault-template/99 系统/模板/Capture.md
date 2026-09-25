@@ -2,7 +2,6 @@
 status: inbox
 captured: "{{timestamp}}"
 source_url:
-source_type: manual
 ---
 
 # 收藏原因

@@ -1,10 +1,16 @@
 # Vacuum Shortcut
 
-Universal Shortcut 的名称为 `Vacuum`。当前 Shortcut 由用户在 iPhone 上手动维护；repository **尚未包含可导入的 Shortcut binary**。
+Universal Shortcut 的名称为 `Vacuum`，通过[官方 iCloud 链接](https://www.icloud.com/shortcuts/79c33516e80441dda719c907c2b5dcf3)安装。repository 不保存 Shortcut binary。
+
+安装时，在 Import Question 中选择：
+
+```text
+Vacuum → 00 收件箱
+```
 
 ## 最终行为
 
-兼容 Share Sheet 的 App：
+支持系统分享的 App：
 
 ```text
 分享 → Vacuum
@@ -19,7 +25,7 @@ Universal Shortcut 的名称为 `Vacuum`。当前 Shortcut 由用户在 iPhone �
 可选 Back Tap：
 
 ```text
-复制链接 → Back Tap → Vacuum
+Back Tap → Vacuum
 ```
 
 Shortcut 优先使用 Share Sheet Input；没有 Share Sheet Input 时使用 Clipboard。随后询问「为什么值得收藏？」，并把一条 timestamped Markdown Capture 写入 `00 收件箱`。

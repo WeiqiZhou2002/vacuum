@@ -10,9 +10,9 @@ paths:
   templates: "99 系统/模板"
   captures: "03 资料/捕获记录"
 
-processing:
+automation:
+  enabled: false
   cadence: weekly
-  automation: false
 
 capture:
   preserve_capture_payload: true
